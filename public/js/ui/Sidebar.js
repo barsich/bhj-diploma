@@ -18,7 +18,12 @@ class Sidebar {
    * при нажатии на кнопку .sidebar-toggle
    * */
   static initToggleButton() {
-
+    const body = document.getElementsByTagName('body');
+    const sidebarToggle = document.querySelector('[data-toggle="push-menu"]');
+    sidebarToggle.addEventListener('click', () => {
+      body[0].classList.toggle('sidebar-open');
+      body[0].classList.toggle('sidebar-collapse');
+    });
   }
 
   /**
@@ -29,6 +34,23 @@ class Sidebar {
    * выходу устанавливает App.setState( 'init' )
    * */
   static initAuthLinks() {
-
+    const menuItems = Array.from(document.querySelectorAll('.menu-item'));
+    menuItems.forEach((item) =>
+      item.addEventListener('click', (event) => {
+        event.preventDefault();
+        switch (event.currentTarget.className) {
+          case 'menu-item menu-item_login':
+            App.getModal('login').open();
+            break;
+          case 'menu-item menu-item_register':
+            App.getModal('register').open();
+            break;
+          case 'menu-item menu-item_logout':
+            //TODO: При нажатии на кнопку «Выйти» необходимо вызвать метод User.logout и после успешного выхода (response.success = true), нужно вызвать App.setState( 'init' )
+            User.logout();
+            break;
+        }
+      })
+    );
   }
 }
