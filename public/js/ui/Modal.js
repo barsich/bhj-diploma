@@ -4,6 +4,7 @@
  * В первую очередь это открытие или
  * закрытие имеющихся окон
  * */
+
 class Modal {
   /**
    * Устанавливает текущий элемент в свойство element
@@ -12,7 +13,12 @@ class Modal {
    * необходимо выкинуть ошибку.
    * */
   constructor(element){
-
+    try {
+      this.modal = element;
+      this.registerEvents();      
+    } catch (error) {
+      throw new Error('Передан пустой элемент!');
+    }
   }
 
   /**
@@ -21,27 +27,29 @@ class Modal {
    * (с помощью метода Modal.onClose)
    * */
   registerEvents() {
-
+    this.modal.querySelectorAll('[data-dismiss="modal]').forEach(item => item.addEventListener('click', this.onClose()));
   }
 
   /**
    * Срабатывает после нажатия на элементы, закрывающие окно.
    * Закрывает текущее окно (Modal.close())
    * */
-  onClose(e) {
-
+  onClose(event) {
+    event.preventDefault();
+    //FIXME не закрывает
+    this.close();
   }
   /**
    * Открывает окно: устанавливает CSS-свойство display
    * со значением «block»
    * */
   open() {
-
+    this.modal.setAttribute('style', 'display: block');
   }
   /**
    * Закрывает окно: удаляет CSS-свойство display
    * */
   close(){
-
+    this.modal.removeAttribute('style');
   }
 }
