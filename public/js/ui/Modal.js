@@ -27,16 +27,14 @@ class Modal {
    * (с помощью метода Modal.onClose)
    * */
   registerEvents() {
-    this.modal.querySelectorAll('[data-dismiss="modal]').forEach(item => item.addEventListener('click', this.onClose()));
+    this.modal.querySelectorAll('[data-dismiss="modal"]').forEach(item => item.addEventListener('click', () => this.onClose()));
   }
 
   /**
    * Срабатывает после нажатия на элементы, закрывающие окно.
    * Закрывает текущее окно (Modal.close())
    * */
-  onClose(event) {
-    event.preventDefault();
-    //FIXME не закрывает
+  onClose() {
     this.close();
   }
   /**
