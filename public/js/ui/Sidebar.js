@@ -46,8 +46,14 @@ class Sidebar {
             App.getModal('register').open();
             break;
           case 'menu-item menu-item_logout':
-            //TODO: При нажатии на кнопку «Выйти» необходимо вызвать метод User.logout и после успешного выхода (response.success = true), нужно вызвать App.setState( 'init' )
-            User.logout();
+            User.logout(User.current(), (err, response) => {
+              if (response.success) {
+                User.unsetCurrent();
+                App.setState('init');
+              } else {
+                alert(err);
+              }
+            });
             break;
         }
       })
