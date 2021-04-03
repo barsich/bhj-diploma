@@ -3,11 +3,6 @@
  * на сервер.
  * */
 const createRequest = (options = {}) => {
-  if (!options.data) {
-    return;
-  }
-  
-
   const xhr = new XMLHttpRequest();
   let formData;
 
@@ -16,7 +11,6 @@ const createRequest = (options = {}) => {
     for (let key in options.data) {
       options.url += `${key}=${options.data[key]}&`;
     }
-    options.url -= '&';
   } else {
     formData = new FormData();
     for (let key in options.data) {
@@ -34,6 +28,6 @@ const createRequest = (options = {}) => {
       }
     });
   } catch (error) {
-    console.error(error);
+    throw new Error(error);
   }
 };
