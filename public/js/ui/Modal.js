@@ -12,13 +12,12 @@ class Modal {
    * Если переданный элемент не существует,
    * необходимо выкинуть ошибку.
    * */
-  constructor(element){
-    try {
-      this.modal = element;
-      this.registerEvents();      
-    } catch (error) {
+  constructor(element) {
+    if (!element) {
       throw new Error('Передан пустой элемент!');
     }
+    this.modal = element;
+    this.registerEvents();
   }
 
   /**
@@ -27,7 +26,7 @@ class Modal {
    * (с помощью метода Modal.onClose)
    * */
   registerEvents() {
-    this.modal.querySelectorAll('[data-dismiss="modal"]').forEach(item => item.addEventListener('click', () => this.onClose()));
+    this.modal.querySelectorAll('[data-dismiss="modal"]').forEach((item) => item.addEventListener('click', () => this.onClose()));
   }
 
   /**
@@ -47,7 +46,7 @@ class Modal {
   /**
    * Закрывает окно: удаляет CSS-свойство display
    * */
-  close(){
+  close() {
     this.modal.removeAttribute('style');
   }
 }
