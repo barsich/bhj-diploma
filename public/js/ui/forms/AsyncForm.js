@@ -14,12 +14,11 @@ class AsyncForm {
    * через registerEvents()
    * */
   constructor(element) {
-    try {
-      this.form = element;
-      this.registerEvents();      
-    } catch (error) {
+    if (!element) {
       throw new Error('Передан пустой элемент!');
     }
+    this.form = element;
+    this.registerEvents();
   }
 
   /**
@@ -27,11 +26,10 @@ class AsyncForm {
    * вызывает метод submit()
    * */
   registerEvents() {
-    this.form.addEventListener('submit', event => {
+    this.form.addEventListener('submit', (event) => {
       event.preventDefault();
       this.submit();
     });
-
   }
 
   /**
@@ -50,8 +48,7 @@ class AsyncForm {
     return formDataJSON;
   }
 
-  onSubmit(options){
-  }
+  onSubmit(options) {}
 
   /**
    * Вызывает метод onSubmit и передаёт туда
